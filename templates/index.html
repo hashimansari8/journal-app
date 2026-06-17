@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Home — Journal App{% endblock %}
+
+{% block content %}
+<h1>Welcome to Your Journal</h1>
+<p class="subtitle">Capture thoughts, revisit memories, and find what matters.</p>
+
+<div class="card-grid">
+    <a href="{{ url_for('add_entry') }}" class="card">
+        <h2>Add Entry</h2>
+        <p>Write a new journal entry.</p>
+    </a>
+    <a href="{{ url_for('view_entries') }}" class="card">
+        <h2>View Entries</h2>
+        <p>Read all your past entries.</p>
+    </a>
+    <a href="{{ url_for('search') }}" class="card">
+        <h2>Search Entries</h2>
+        <p>Find entries by keyword.</p>
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Add Entry — Journal App{% endblock %}
+
+{% block content %}
+<h1>Add Entry</h1>
+<p class="subtitle">Write your journal entry below.</p>
+
+<form method="POST" class="form">
+    <label for="entry">Journal Entry</label>
+    <textarea id="entry" name="entry" rows="8" placeholder="What's on your mind?" required></textarea>
+    <button type="submit" class="btn">Save Entry</button>
+</form>
+{% endblock %}

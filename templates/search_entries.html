@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Search Entries — Journal App{% endblock %}
+
+{% block content %}
+<h1>Search Entries</h1>
+<p class="subtitle">Find entries containing a keyword.</p>
+
+<form method="POST" class="form">
+    <label for="keyword">Keyword</label>
+    <input type="text" id="keyword" name="keyword" value="{{ keyword }}" placeholder="Enter a keyword..." required>
+    <button type="submit" class="btn">Search</button>
+</form>
+
+{% if keyword %}
+    {% if matches %}
+    <h2 class="results-heading">Search Results</h2>
+    <ul class="entry-list">
+        {% for match in matches %}
+        <li class="entry-item">{{ match }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-state">No entries found matching "{{ keyword }}".</p>
+    {% endif %}
+{% endif %}
+{% endblock %}
