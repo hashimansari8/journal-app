@@ -1,39 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}AI Assistant — Journal App{% endblock %}
+{% block title %}AI Assistant — NoteFlow{% endblock %}
 
 {% block content %}
-<h1>AI Assistant</h1>
-<p class="subtitle">Ask questions about your journal. This assistant reads your entries and answers using simple rules — no external AI yet.</p>
+<div class="page-header">
+    <h1>AI Assistant</h1>
+    <p class="subtitle">Ask questions about your notes. This assistant reads your workspace and responds with rule-based insights — no external AI connected yet.</p>
+</div>
 
-<form method="POST" class="form">
-    <label for="question">Your question</label>
-    <input
-        type="text"
-        id="question"
-        name="question"
-        value="{{ question }}"
-        placeholder="e.g. Summarize my journal"
-        required
-    >
-    <button type="submit" class="btn">Ask</button>
-</form>
+<div class="assistant-layout">
+    <div class="panel assistant-panel">
+        <div class="assistant-header">
+            <div class="assistant-avatar">✦</div>
+            <div>
+                <p class="assistant-name">NoteFlow Assistant</p>
+                <p class="assistant-status">Online · reads your local notes</p>
+            </div>
+        </div>
 
-<div class="suggestions">
-    <p class="suggestions-label">Try asking:</p>
-    <div class="suggestion-chips">
-        {% for suggestion in suggestions %}
-        <button type="button" class="chip" data-question="{{ suggestion }}">{{ suggestion }}</button>
-        {% endfor %}
+        <form method="POST" class="form assistant-form">
+            <label for="question">Ask a question</label>
+            <div class="search-input-wrap">
+                <span class="search-icon">?</span>
+                <input
+                    type="text"
+                    id="question"
+                    name="question"
+                    value="{{ question }}"
+                    placeholder="e.g. Summarize my notes"
+                    required
+                >
+            </div>
+            <button type="submit" class="btn btn-primary">Ask assistant</button>
+        </form>
+
+        <div class="suggestions">
+            <p class="suggestions-label">Suggested prompts</p>
+            <div class="suggestion-chips">
+                {% for suggestion in suggestions %}
+                <button type="button" class="chip" data-question="{{ suggestion }}">{{ suggestion }}</button>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-</div>
 
-{% if answer %}
-<div class="assistant-response">
-    <p class="response-label">Assistant</p>
-    <pre class="response-text">{{ answer }}</pre>
+    {% if answer %}
+    <div class="assistant-response">
+        <div class="response-header">
+            <div class="assistant-avatar assistant-avatar-sm">✦</div>
+            <p class="response-label">Assistant response</p>
+        </div>
+        <pre class="response-text">{{ answer }}</pre>
+    </div>
+    {% else %}
+    <div class="assistant-placeholder">
+        <div class="empty-icon">✦</div>
+        <h2>Ready to help</h2>
+        <p>Try a suggested prompt or type your own question about your notes.</p>
+    </div>
+    {% endif %}
 </div>
-{% endif %}
 
 <script>
     document.querySelectorAll(".chip").forEach(function (chip) {

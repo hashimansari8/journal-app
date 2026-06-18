@@ -1,27 +1,43 @@
 {% extends "base.html" %}
 
-{% block title %}Search Entries — Journal App{% endblock %}
+{% block title %}Search — NoteFlow{% endblock %}
 
 {% block content %}
-<h1>Search Entries</h1>
-<p class="subtitle">Find entries containing a keyword.</p>
+<div class="page-header">
+    <h1>Search Notes</h1>
+    <p class="subtitle">Find any note by keyword across your entire workspace.</p>
+</div>
 
-<form method="POST" class="form">
-    <label for="keyword">Keyword</label>
-    <input type="text" id="keyword" name="keyword" value="{{ keyword }}" placeholder="Enter a keyword..." required>
-    <button type="submit" class="btn">Search</button>
-</form>
+<div class="panel">
+    <form method="POST" class="form">
+        <label for="keyword">Search keyword</label>
+        <div class="search-input-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="text" id="keyword" name="keyword" value="{{ keyword }}" placeholder="e.g. Python, ideas, meetings..." required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search notes</button>
+    </form>
+</div>
 
 {% if keyword %}
     {% if matches %}
-    <h2 class="results-heading">Search Results</h2>
-    <ul class="entry-list">
-        {% for match in matches %}
-        <li class="entry-item">{{ match }}</li>
-        {% endfor %}
-    </ul>
+    <div class="results-section">
+        <h2 class="results-heading">{{ matches|length }} result{{ 's' if matches|length != 1 else '' }} for "{{ keyword }}"</h2>
+        <ul class="entry-list">
+            {% for match in matches %}
+            <li class="entry-item entry-item-match">
+                <span class="entry-dot"></span>
+                <p>{{ match }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     {% else %}
-    <p class="empty-state">No entries found matching "{{ keyword }}".</p>
+    <div class="empty-state">
+        <div class="empty-icon">⌕</div>
+        <h2>No matches found</h2>
+        <p>Nothing in your notes mentions "{{ keyword }}". Try a different keyword.</p>
+    </div>
     {% endif %}
 {% endif %}
 {% endblock %}

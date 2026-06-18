@@ -3,22 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Journal App{% endblock %}</title>
+    <title>{% block title %}NoteFlow{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav class="nav">
-        <a href="{{ url_for('index') }}" class="nav-brand">Journal</a>
-        <div class="nav-links">
-            <a href="{{ url_for('add_entry') }}">Add Entry</a>
-            <a href="{{ url_for('view_entries') }}">View Entries</a>
-            <a href="{{ url_for('search') }}">Search</a>
-            <a href="{{ url_for('assistant') }}">AI Assistant</a>
-        </div>
-    </nav>
+    <header class="header">
+        <nav class="nav">
+            <a href="{{ url_for('index') }}" class="nav-brand">
+                <span class="nav-logo">NF</span>
+                <span class="nav-name">NoteFlow</span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links">
+                <a href="{{ url_for('add_entry') }}" class="nav-link{% if request.endpoint == 'add_entry' %} active{% endif %}">New Note</a>
+                <a href="{{ url_for('view_entries') }}" class="nav-link{% if request.endpoint == 'view_entries' %} active{% endif %}">All Notes</a>
+                <a href="{{ url_for('search') }}" class="nav-link{% if request.endpoint == 'search' %} active{% endif %}">Search</a>
+                <a href="{{ url_for('assistant') }}" class="nav-link nav-link-accent{% if request.endpoint == 'assistant' %} active{% endif %}">AI Assistant</a>
+            </div>
+        </nav>
+    </header>
 
     <main class="container">
         {% block content %}{% endblock %}
     </main>
+
+    <footer class="footer">
+        <p>NoteFlow — modern note-taking, built for focus.</p>
+    </footer>
+
+    <script>
+        document.querySelector(".nav-toggle").addEventListener("click", function () {
+            var links = document.querySelector(".nav-links");
+            var expanded = this.getAttribute("aria-expanded") === "true";
+            this.setAttribute("aria-expanded", expanded ? "false" : "true");
+            links.classList.toggle("open");
+            this.classList.toggle("open");
+        });
+    </script>
 </body>
 </html>

@@ -29,7 +29,13 @@ def search_entries(keyword):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    entries = read_entries()
+    recent_notes = entries[-3:] if len(entries) >= 3 else entries
+    return render_template(
+        "index.html",
+        total_notes=len(entries),
+        recent_notes=recent_notes,
+    )
 
 
 @app.route("/add", methods=["GET", "POST"])

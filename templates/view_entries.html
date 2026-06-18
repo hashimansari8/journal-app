@@ -1,18 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}View Entries — Journal App{% endblock %}
+{% block title %}All Notes — NoteFlow{% endblock %}
 
 {% block content %}
-<h1>Your Journal</h1>
-<p class="subtitle">All your saved entries.</p>
+<div class="page-header">
+    <h1>All Notes</h1>
+    <p class="subtitle">{{ entries|length }} note{{ 's' if entries|length != 1 else '' }} in your workspace.</p>
+</div>
 
 {% if entries %}
 <ul class="entry-list">
     {% for entry in entries %}
-    <li class="entry-item">{{ entry }}</li>
+    <li class="entry-item">
+        <span class="entry-dot"></span>
+        <p>{{ entry }}</p>
+    </li>
     {% endfor %}
 </ul>
 {% else %}
-<p class="empty-state">No entries yet. <a href="{{ url_for('add_entry') }}">Write your first entry</a>.</p>
+<div class="empty-state">
+    <div class="empty-icon">📝</div>
+    <h2>No notes yet</h2>
+    <p>Your workspace is empty. Create your first note to get started.</p>
+    <a href="{{ url_for('add_entry') }}" class="btn btn-primary">Create your first note</a>
+</div>
 {% endif %}
 {% endblock %}

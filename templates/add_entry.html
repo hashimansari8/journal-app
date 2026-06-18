@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Add Entry — Journal App{% endblock %}
+{% block title %}New Note — NoteFlow{% endblock %}
 
 {% block content %}
-<h1>Add Entry</h1>
-<p class="subtitle">Write your journal entry below.</p>
+<div class="page-header">
+    <h1>New Note</h1>
+    <p class="subtitle">Capture a thought, idea, or reminder — your note is saved instantly.</p>
+</div>
 
-<form method="POST" class="form">
-    <label for="entry">Journal Entry</label>
-    <textarea id="entry" name="entry" rows="8" placeholder="What's on your mind?" required></textarea>
-    <button type="submit" class="btn">Save Entry</button>
-</form>
+<div class="panel">
+    <form method="POST" class="form">
+        <label for="entry">Note content</label>
+        <textarea id="entry" name="entry" rows="10" placeholder="What's on your mind?" required></textarea>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save note</button>
+            <a href="{{ url_for('view_entries') }}" class="btn btn-ghost">Cancel</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

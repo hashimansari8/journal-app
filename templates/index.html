@@ -1,27 +1,95 @@
 {% extends "base.html" %}
 
-{% block title %}Home — Journal App{% endblock %}
+{% block title %}Dashboard — NoteFlow{% endblock %}
 
 {% block content %}
-<h1>Welcome to Your Journal</h1>
-<p class="subtitle">Capture thoughts, revisit memories, and find what matters.</p>
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-badge">Your personal workspace</p>
+        <h1 class="hero-title">Capture ideas.<br><span class="hero-highlight">Stay in flow.</span></h1>
+        <p class="hero-subtitle">NoteFlow helps you write, organize, and rediscover your notes with a clean, distraction-free experience.</p>
+        <div class="hero-actions">
+            <a href="{{ url_for('add_entry') }}" class="btn btn-primary">Create a note</a>
+            <a href="{{ url_for('view_entries') }}" class="btn btn-secondary">Browse notes</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-card hero-card-1">
+            <span class="hero-card-label">Quick capture</span>
+            <p>Write thoughts the moment they appear.</p>
+        </div>
+        <div class="hero-card hero-card-2">
+            <span class="hero-card-label">Smart search</span>
+            <p>Find any note in seconds.</p>
+        </div>
+    </div>
+</section>
 
-<div class="card-grid">
-    <a href="{{ url_for('add_entry') }}" class="card">
-        <h2>Add Entry</h2>
-        <p>Write a new journal entry.</p>
-    </a>
-    <a href="{{ url_for('view_entries') }}" class="card">
-        <h2>View Entries</h2>
-        <p>Read all your past entries.</p>
-    </a>
-    <a href="{{ url_for('search') }}" class="card">
-        <h2>Search Entries</h2>
-        <p>Find entries by keyword.</p>
-    </a>
-    <a href="{{ url_for('assistant') }}" class="card">
-        <h2>AI Assistant</h2>
-        <p>Ask questions about your journal.</p>
-    </a>
-</div>
+<section class="stats-section">
+    <h2 class="section-title">Overview</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <p class="stat-label">Total notes</p>
+            <p class="stat-value">{{ total_notes }}</p>
+            <p class="stat-hint">Saved in your workspace</p>
+        </div>
+        <div class="stat-card">
+            <p class="stat-label">Recent activity</p>
+            <p class="stat-value">{{ recent_notes|length }}</p>
+            <p class="stat-hint">Latest notes on your dashboard</p>
+        </div>
+        <div class="stat-card stat-card-accent">
+            <p class="stat-label">AI Assistant</p>
+            <p class="stat-value">Ready</p>
+            <p class="stat-hint">Ask questions about your notes</p>
+        </div>
+    </div>
+</section>
+
+{% if recent_notes %}
+<section class="recent-section">
+    <div class="section-header">
+        <h2 class="section-title">Recent notes</h2>
+        <a href="{{ url_for('view_entries') }}" class="section-link">View all</a>
+    </div>
+    <ul class="entry-list">
+        {% for note in recent_notes %}
+        <li class="entry-item">
+            <span class="entry-dot"></span>
+            <p>{{ note }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<section class="dashboard-section">
+    <h2 class="section-title">Quick actions</h2>
+    <div class="card-grid">
+        <a href="{{ url_for('add_entry') }}" class="dashboard-card">
+            <div class="card-icon card-icon-write">✎</div>
+            <h3>New Note</h3>
+            <p>Start writing a fresh note.</p>
+            <span class="card-arrow">→</span>
+        </a>
+        <a href="{{ url_for('view_entries') }}" class="dashboard-card">
+            <div class="card-icon card-icon-view">☰</div>
+            <h3>All Notes</h3>
+            <p>Browse everything you've saved.</p>
+            <span class="card-arrow">→</span>
+        </a>
+        <a href="{{ url_for('search') }}" class="dashboard-card">
+            <div class="card-icon card-icon-search">⌕</div>
+            <h3>Search</h3>
+            <p>Find notes by keyword instantly.</p>
+            <span class="card-arrow">→</span>
+        </a>
+        <a href="{{ url_for('assistant') }}" class="dashboard-card dashboard-card-featured">
+            <div class="card-icon card-icon-ai">✦</div>
+            <h3>AI Assistant</h3>
+            <p>Get summaries and answers from your notes.</p>
+            <span class="card-arrow">→</span>
+        </a>
+    </div>
+</section>
 {% endblock %}
