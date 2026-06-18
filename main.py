@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 
+from assistant import answer_question, get_suggested_questions
+
 app = Flask(__name__)
 JOURNAL_FILE = "journal.txt"
 
@@ -55,6 +57,22 @@ def search():
         if keyword:
             matches = search_entries(keyword)
     return render_template("search_entries.html", matches=matches, keyword=keyword)
+
+
+@app.route("/assistant", methods=["GET", "POST"])
+def assistant():
+    answer = ""
+    question = ""
+    if request.method == "POST":
+        question = request.form.get("question", "").strip()
+        if question:
+            answer = answer_question(question, read_entries())
+    return render_template(
+        "assistant.html",
+        answer=answer,
+        question=question,
+        suggestions=get_suggested_questions(),
+    )
 
 
 if __name__ == "__main__":

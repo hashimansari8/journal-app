@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}AI Assistant — Journal App{% endblock %}
+
+{% block content %}
+<h1>AI Assistant</h1>
+<p class="subtitle">Ask questions about your journal. This assistant reads your entries and answers using simple rules — no external AI yet.</p>
+
+<form method="POST" class="form">
+    <label for="question">Your question</label>
+    <input
+        type="text"
+        id="question"
+        name="question"
+        value="{{ question }}"
+        placeholder="e.g. Summarize my journal"
+        required
+    >
+    <button type="submit" class="btn">Ask</button>
+</form>
+
+<div class="suggestions">
+    <p class="suggestions-label">Try asking:</p>
+    <div class="suggestion-chips">
+        {% for suggestion in suggestions %}
+        <button type="button" class="chip" data-question="{{ suggestion }}">{{ suggestion }}</button>
+        {% endfor %}
+    </div>
+</div>
+
+{% if answer %}
+<div class="assistant-response">
+    <p class="response-label">Assistant</p>
+    <pre class="response-text">{{ answer }}</pre>
+</div>
+{% endif %}
+
+<script>
+    document.querySelectorAll(".chip").forEach(function (chip) {
+        chip.addEventListener("click", function () {
+            document.getElementById("question").value = chip.dataset.question;
+            document.getElementById("question").focus();
+        });
+    });
+</script>
+{% endblock %}

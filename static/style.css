@@ -164,3 +164,58 @@ h1 {
 .empty-state a {
     color: #2c2c2c;
 }
+
+.suggestions {
+    margin-bottom: 2rem;
+}
+
+.suggestions-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.suggestion-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.chip {
+    padding: 0.45rem 0.85rem;
+    background: #fff;
+    border: 1px solid #e0d8d0;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: #2c2c2c;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.chip:hover {
+    border-color: #2c2c2c;
+    background: #faf8f5;
+}
+
+.assistant-response {
+    padding: 1.25rem;
+    background: #fff;
+    border: 1px solid #e0d8d0;
+    border-radius: 8px;
+}
+
+.response-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    margin-bottom: 0.75rem;
+}
+
+.response-text {
+    font-family: inherit;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    line-height: 1.7;
+}
